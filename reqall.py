@@ -113,33 +113,39 @@ def load_org_meeting_file():
     return nodelist
 
 
-# Open and parse the rss feed.
-# d = feedparser.parse(REQUALL_URL)
-d = feedparser.parse(r'2e02c08c4fcc1fd69e844e35a67e660403b893fc.1')
+def main():
+    # Open and parse the rss feed.
+    # d = feedparser.parse(REQUALL_URL)
+    d = feedparser.parse(r'2e02c08c4fcc1fd69e844e35a67e660403b893fc.1')
 
-# print d.feed.title
-guid_list =  load_guids()
-print guid_list
-#guid_list = []
+    # Get guids of items we have already seen.
+    guid_list =  load_guids()
 
-
-for entry in d['entries']:
-    tasklist = load_org_task_file()
-    notelist = load_org_notes_file()
-    meeting_list = load_org_meeting_file()
+    for entry in d['entries']:
+        tasklist = load_org_task_file()
+        notelist = load_org_notes_file()
+        meeting_list = load_org_meeting_file()
 
 
-    if (entry.guid in guid_list):
-        print "Entry skipped: Category: %s Title: %s" % (entry.category, entry.title)
-    else:
-        guid_list.append(entry.guid)
-        print entry.guid
-        if (entry.category == 'Task'):
-            write_task(entry)
-        if (entry.category == 'Note'):
-            write_note(entry)
-        if (entry.category == 'Meeting'):
-            write_meeting(entry)
+        if (entry.guid in guid_list):
+            print "Entry skipped: Category: %s Title: %s" % (entry.category, entry.title)
+        else:
+            guid_list.append(entry.guid)
+            print entry.guid
+            if (entry.category == 'Task'):
+                print "* TODO %s\n:PROPERTIES:\n:guid: %s\n:END:\n%s\n" % (entry.title, entry.guid, entry.description)    
+                write_task(entry)
+            if (entry.category == 'Note'):
+                print "** [%s] %s\n:PROPERTIES:\n:guid: %s\n:END:\n%s\n" % (time_stamp(), entry.title, entry.guid, entry.description)
+                write_note(entry)
+            if (entry.category == 'Meeting'):
+                print "* TODO %s :Appointment:\n:PROPERTIES:\n:guid: %s\n:END:\n%s\n" % (entry.title, entry.guid, entry.description)
+                write_meeting(entry)
 
-write_guids(guid_list)
-print guid_list
+    # Save updated list of guids.
+    write_guids(guid_list)
+
+
+if __name__ == '__main__':
+    main()
+
