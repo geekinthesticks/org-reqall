@@ -4,7 +4,7 @@ import feedparser, time, datetime
 
 # Note the current version of orgnode.py
 # requires a file with at least one entry.
-import orgnode
+from orgnode import *
 
 
 REQUALL_URL = 'Your reqall rss url'
