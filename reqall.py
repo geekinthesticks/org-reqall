@@ -36,7 +36,7 @@ def load_guids():
 
 def write_guids(guidlist):
     """
-    Write the list of guids to a file.
+    Write the updated list of guids to a file.
     """
     guid_file = os.path.join(os.path.expanduser("~"), REQALL_GUIDS_FILE)
     try:
@@ -56,6 +56,10 @@ def time_stamp():
     return today.strftime("%Y-%m-%d %a %H:%M")
 
 def write_task(task):
+    """
+    Save a tesk to the tasks org file.
+    """
+    
     logfile = open(TASKS_ORG_FILE, 'a')
 
     str = "* TODO %s\n:PROPERTIES:\n:guid: %s\n:END:\n%s\n" % (task.title, task.guid, task.description)
@@ -64,6 +68,10 @@ def write_task(task):
     logfile.close()
 
 def write_note(note):
+    """
+    Save a note to the notes org file.
+    """
+    
     logfile = open(NOTES_ORG_FILE, 'a')
     timestamp = time_stamp()
     str = "** [%s] %s\n:PROPERTIES:\n:guid: %s\n:END:\n%s\n" % (timestamp, note.title, note.guid, note.description)
@@ -73,7 +81,7 @@ def write_note(note):
 
 def write_meeting(meeting):
     """
-
+    Save a meeting to the meetings org file.
     """
     logfile = open(MEETINGS_ORG_FILE, 'a')
 
@@ -85,21 +93,21 @@ def write_meeting(meeting):
 
 def load_org_task_file():
     """
-    Create a list of org objects.
+    Create a list of org objects from the task file.
     """
     nodelist = orgnode.makelist(TASKS_ORG_FILE)
     return nodelist
 
 def load_org_notes_file():
     """
-    Create a list of org objects.
+    Create a list of org objects from the notes file.
     """
     nodelist = orgnode.makelist(NOTES_ORG_FILE)
     return nodelist
 
 def load_org_meeting_file():
     """
-    Create a list of org objects.
+    Create a list of org objects from the meetings file.
     """
     nodelist = orgnode.makelist(MEETINGS_ORG_FILE)
     return nodelist
@@ -116,7 +124,6 @@ print guid_list
 
 
 for entry in d['entries']:
-    #print entry.category
     tasklist = load_org_task_file()
     notelist = load_org_notes_file()
     meeting_list = load_org_meeting_file()
