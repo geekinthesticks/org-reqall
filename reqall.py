@@ -9,8 +9,9 @@ import os, feedparser, time, datetime, cPickle
 import Orgnode
 
 
+# Customize these variables for your own
+# requirements.
 REQUALL_URL = 'Your reqall rss url'
-
 TASKS_ORG_FILE = 'todo.org'
 NOTES_ORG_FILE = 'notes.org'
 MEETINGS_ORG_FILE = 'calendar.org'
