@@ -1,0 +1,43 @@
+What Does reqall.py Do?
+=======================
+Reqall (http://www.reqall.com) is a web based service that allows you to capture information using a number of different methods such as text messaging, voice and instant messaging. Reqall provides an rss feed of your captured items and reqall.py parses this feed and adds items to emacs org files.
+
+Requirements.
+=============
+- emacs.
+
+- Carsten Dominik's Org-Mode for emacs (http://orgmode.org/).
+
+- Python - any recent version should work.
+
+- Mark Pilgrims Universal Feed parser. Available from http://www.feedparser.org/
+
+- The python DNS library. On debian based systems:
+
+sudo apt-get install python-dns
+
+- Charles Cave's (charlesweb@optusnet.com.au) Orgnode.py. Available from http://members.optusnet.com.au/~charles57/GTD
+
+Installation.
+=============
+Simply copy the scripts to any convenient directory.
+
+Using reqall.py.
+================
+If you haven't already got one, sign up for an account at http://www.reqall.com. You will need to obtain the rss feed for your account from reqall's site.
+
+Edit the script to enter your account details and details of the org files where you want items from the feed to be stored. The script treats each Category (eg. "Task", "Note", etc) separately and you can store them in different files if you wish.
+
+The guid from each item 'n the feed is stored in ~/.reqallguids. Each item in the feed is checked against the list of stored guids to ensure that it is only downloaded once.
+
+Note that the uer running the script will need read/write access to whatever org files you wish to update.
+
+Feedback.
+=========
+Please send any comments and suggestions to ian@manor-farm.org.
+
+Future Enhancements.
+====================
+Store sensitive information (reqall url) in a dotfile.
+
+Develop a similar script for Dial2Do (http://www.dial2do.com).
