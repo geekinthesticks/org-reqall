@@ -1,4 +1,6 @@
 #!/usr/bin/python
+# Inspired by an earlier idea from Brad Bozarth <prettygood@cs.stanford.edu>
+
 
 import os, feedparser, time, datetime, cPickle
 
